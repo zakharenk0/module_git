@@ -1,0 +1,39 @@
+@startuml
+title Factory Method: создание отцепа на сортировочной станции (вариант 7)
+
+interface Otsep {
+  +description() : String
+  +carCount() : int
+  +capacityTons() : double
+}
+
+abstract class OtsepCreator {
+  +{abstract}createOtsep(carCount, capacityPerCarTons) : Otsep
+  +{abstract}title() : String
+}
+
+class DestinationOtsep
+class TransitOtsep
+class RepairOtsep
+class LocalOtsep
+
+class DestinationOtsepCreator
+class TransitOtsepCreator
+class RepairOtsepCreator
+class LocalOtsepCreator
+
+OtsepCreator <|-- DestinationOtsepCreator
+OtsepCreator <|-- TransitOtsepCreator
+OtsepCreator <|-- RepairOtsepCreator
+OtsepCreator <|-- LocalOtsepCreator
+
+Otsep <|.. DestinationOtsep
+Otsep <|.. TransitOtsep
+Otsep <|.. RepairOtsep
+Otsep <|.. LocalOtsep
+
+DestinationOtsepCreator ..> DestinationOtsep : создаёт
+TransitOtsepCreator ..> TransitOtsep : создаёт
+RepairOtsepCreator ..> RepairOtsep : создаёт
+LocalOtsepCreator ..> LocalOtsep : создаёт
+@enduml

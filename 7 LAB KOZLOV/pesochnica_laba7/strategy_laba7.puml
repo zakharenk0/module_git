@@ -1,0 +1,30 @@
+@startuml
+title Strategy: очерёдность расформирования состава (вариант 7)
+
+interface DismantlingOrderStrategy {
+  +order(cars) : List<String>
+  +title() : String
+}
+
+class DismantlingPlan {
+  +makeOrder(cars, strategy) : List<String>
+}
+
+class ByDestinationOrder
+class ByWeightOrder
+class ByCarTypeOrder
+
+class TrainCar {
+  -number : String
+  -destination : String
+  -weightTons : int
+  -carType : String
+  -priority : boolean
+}
+
+DismantlingPlan o--> DismantlingOrderStrategy : использует
+DismantlingOrderStrategy <|.. ByDestinationOrder
+DismantlingOrderStrategy <|.. ByWeightOrder
+DismantlingOrderStrategy <|.. ByCarTypeOrder
+DismantlingPlan ..> TrainCar : упорядочивает
+@enduml

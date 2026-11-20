@@ -1,0 +1,32 @@
+@startuml
+title Observer: событие «состав расформирован» на сортировочной станции (вариант 7)
+
+interface DismantlingListener {
+  +onTrainDismantled(stationName, trainNumber, carCount) : void
+  +listenerTitle() : String
+}
+
+class Station {
+  -stationName : String
+  -listeners : List<DismantlingListener>
+  +addListener(listener) : void
+  +removeListener(listener) : void
+  +trainDismantled(trainNumber, carCount) : void
+  +deliveryOrder() : List<String>
+}
+
+class BoardDisplay
+class DismantlingJournal {
+  -records : List<String>
+  +recordCount() : int
+}
+class NotificationService
+class AsuIntegration
+
+DismantlingListener <|.. BoardDisplay
+DismantlingListener <|.. DismantlingJournal
+DismantlingListener <|.. NotificationService
+DismantlingListener <|.. AsuIntegration
+
+Station o--> DismantlingListener : оповещает
+@enduml
